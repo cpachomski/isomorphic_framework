@@ -1,11 +1,7 @@
 import Hapi from 'hapi';
 import nunjucks from 'nunjucks';
 import Application from './lib/Application';
-import Controller from './lib/Controller';
-import * as Helpers from './lib/helpers';
-
-//read templates from dist directory
-nunjucks.configure('./dist');
+import HelloController from './controllers/HelloController';
 
 //create server
 const server = new Hapi.Server();
@@ -17,7 +13,7 @@ server.connection({
 
 
 const app = new Application({
-	'/': Controller
+	'/hello/{name*}': HelloController
 }, {
 	server: server
 })

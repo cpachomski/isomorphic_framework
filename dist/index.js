@@ -12,20 +12,11 @@ var _Application = require('./lib/Application');
 
 var _Application2 = _interopRequireDefault(_Application);
 
-var _Controller = require('./lib/Controller');
+var _HelloController = require('./controllers/HelloController');
 
-var _Controller2 = _interopRequireDefault(_Controller);
-
-var _helpers = require('./lib/helpers');
-
-var Helpers = _interopRequireWildcard(_helpers);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+var _HelloController2 = _interopRequireDefault(_HelloController);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//read templates from dist directory
-_nunjucks2.default.configure('./dist');
 
 //create server
 var server = new _hapi2.default.Server();
@@ -36,7 +27,7 @@ server.connection({
 });
 
 var app = new _Application2.default({
-	'/': _Controller2.default
+	'/hello/{name*}': _HelloController2.default
 }, {
 	server: server
 });
