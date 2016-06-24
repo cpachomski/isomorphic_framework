@@ -13,10 +13,3 @@ export function getRequestNames(req) {
 
 	return name;
 }
-
-
-
-
-
-
-
