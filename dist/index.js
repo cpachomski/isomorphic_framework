@@ -8,7 +8,15 @@ var _nunjucks = require('nunjucks');
 
 var _nunjucks2 = _interopRequireDefault(_nunjucks);
 
-var _helpers = require('./helpers');
+var _Application = require('./lib/Application');
+
+var _Application2 = _interopRequireDefault(_Application);
+
+var _Controller = require('./lib/Controller');
+
+var _Controller2 = _interopRequireDefault(_Controller);
+
+var _helpers = require('./lib/helpers');
 
 var Helpers = _interopRequireWildcard(_helpers);
 
@@ -27,15 +35,10 @@ server.connection({
 	port: 8000
 });
 
-//add test route
-server.route({
-	method: 'GET',
-	path: '/hello/{name*}',
-	handler: function handler(req, res) {
-		_nunjucks2.default.render('index.html', Helpers.getRequestNames(req), function (err, html) {
-			res(html);
-		});
-	}
+var app = new _Application2.default({
+	'/': _Controller2.default
+}, {
+	server: server
 });
 
-server.start();
+app.start();

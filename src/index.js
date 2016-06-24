@@ -1,7 +1,8 @@
 import Hapi from 'hapi';
 import nunjucks from 'nunjucks';
-
-import * as Helpers from './helpers';
+import Application from './lib/Application';
+import Controller from './lib/Controller';
+import * as Helpers from './lib/helpers';
 
 //read templates from dist directory
 nunjucks.configure('./dist');
@@ -14,17 +15,13 @@ server.connection({
 	port: 8000
 });
 
-//add test route
-server.route({
-	method: 'GET',
-	path: '/hello/{name*}',
-	handler: (req, res) => {
-		nunjucks.render('index.html', Helpers.getRequestNames(req), (err, html) => {
-			res(html);
-		});
-	}
-});
+
+const app = new Application({
+	'/': Controller
+}, {
+	server: server
+})
 
 
-server.start();
+app.start();
 
