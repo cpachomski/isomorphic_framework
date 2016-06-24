@@ -1,6 +1,8 @@
 import Hapi from 'hapi';
 import nunjucks from 'nunjucks';
 
+import * as Helpers from './helpers';
+
 //read templates from dist directory
 nunjucks.configure('./dist');
 
@@ -15,12 +17,9 @@ server.connection({
 //add test route
 server.route({
 	method: 'GET',
-	path: '/hello/{fname}/{lname}',
+	path: '/hello/{name*}',
 	handler: (req, res) => {
-		nunjucks.render('index.html', {
-			fname: req.params.fname,
-			lname: req.params.lname
-		}, (err, html) => {
+		nunjucks.render('index.html', Helpers.getRequestNames(req), (err, html) => {
 			res(html);
 		});
 	}

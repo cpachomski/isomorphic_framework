@@ -8,6 +8,12 @@ var _nunjucks = require('nunjucks');
 
 var _nunjucks2 = _interopRequireDefault(_nunjucks);
 
+var _helpers = require('./helpers');
+
+var Helpers = _interopRequireWildcard(_helpers);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //read templates from dist directory
@@ -24,12 +30,9 @@ server.connection({
 //add test route
 server.route({
 	method: 'GET',
-	path: '/hello/{fname}/{lname}',
+	path: '/hello/{name*}',
 	handler: function handler(req, res) {
-		_nunjucks2.default.render('index.html', {
-			fname: req.params.fname,
-			lname: req.params.lname
-		}, function (err, html) {
+		_nunjucks2.default.render('index.html', Helpers.getRequestNames(req), function (err, html) {
 			res(html);
 		});
 	}
