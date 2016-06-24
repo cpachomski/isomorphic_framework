@@ -12,7 +12,7 @@ var Application = function () {
 	function Application(routes, options) {
 		_classCallCheck(this, Application);
 
-		this.server = options.server, this.registerRoutes(routes);
+		this.server = options.server, this.document = options.document, this.registerRoutes(routes);
 	}
 
 	_createClass(Application, [{
@@ -46,7 +46,13 @@ var Application = function () {
 								return res(err);
 							}
 
-							res(html);
+							_this.document(_this, controller, req, res, html, function (err, html) {
+								if (err) {
+									return res(err);
+								}
+
+								res(html);
+							});
 						});
 					});
 				}

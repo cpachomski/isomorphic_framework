@@ -43,7 +43,7 @@ var HelloController = function (_Controller) {
 	_createClass(HelloController, [{
 		key: 'toString',
 		value: function toString(cb) {
-			_nunjucks2.default.render('index.html', Helpers.getRequestNames(this.context), function (err, html) {
+			_nunjucks2.default.renderString('<p>From Hello Controller </p>', Helpers.getRequestNames(this.context), function (err, html) {
 				if (err) {
 					return cb(err, null);
 				}

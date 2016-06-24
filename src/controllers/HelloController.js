@@ -7,7 +7,7 @@ nunjucks.configure('./dist');
 
 export default class HelloController extends Controller {
 	toString(cb) {
-		nunjucks.render('index.html', Helpers.getRequestNames(this.context), (err, html) => {
+		nunjucks.renderString('<p>From Hello Controller </p>', Helpers.getRequestNames(this.context), (err, html) => {
 			if (err){
 				return cb(err, null);
 			}
